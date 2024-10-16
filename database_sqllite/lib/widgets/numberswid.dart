@@ -1,8 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 
+// ignore: must_be_immutable
 class numWidget extends StatelessWidget {
   numWidget({this.num = 1, this.number = "one", this.jap = "ichi", super.key});
 
@@ -19,7 +20,7 @@ class numWidget extends StatelessWidget {
           Container(
             width: 80,
             height: 100,
-            color: Color(0xFF8A7F66),
+            color: const Color(0xFF8A7F66),
             child: Image.asset("assets/images/numbers/number_$number.png"),
           ),
           Container(
@@ -45,7 +46,7 @@ class numWidget extends StatelessWidget {
               await player.play(
                   AssetSource("sounds/numbers/number_${number}_sound.mp3"));
             },
-            icon: Icon(Icons.play_arrow),
+            icon: const Icon(Icons.play_arrow),
             splashColor: Colors.green,
           ),
           const Spacer(
