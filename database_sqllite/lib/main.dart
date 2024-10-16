@@ -1,3 +1,4 @@
+import 'package:database_sqllite/Screens/news.dart';
 import 'package:database_sqllite/sql/sqldb.dart';
 import 'package:database_sqllite/Screens/toku.dart';
 import 'package:flutter/cupertino.dart';
@@ -87,6 +88,20 @@ class _firstPageState extends State<firstPage> {
                             ));
                       },
                       child: const Text("navigate to toku"));
+                }),
+                Builder(builder: (context) {
+                  return ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => news(),
+                            ));
+                      },
+                      child: const Text("navigate to News "),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.blue),
+                      ));
                 })
               ],
             ),
