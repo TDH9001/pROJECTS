@@ -1,9 +1,11 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
 class numWidget extends StatelessWidget {
   numWidget({this.num = 1, this.number = "one", this.jap = "ichi", super.key});
+
   int? num;
   String? number;
   String? jap;
@@ -36,7 +38,13 @@ class numWidget extends StatelessWidget {
             flex: 10,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              final player = AudioPlayer();
+              //player.setSourceAsset("sounds/numbers/number_$number.mp3");
+              // await player.play(AssetSource('sounds/colors/black.wav'));
+              await player.play(
+                  AssetSource("sounds/numbers/number_${number}_sound.mp3"));
+            },
             icon: Icon(Icons.play_arrow),
             splashColor: Colors.green,
           ),

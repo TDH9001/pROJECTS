@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class tokuNumbers extends StatefulWidget {
   tokuNumbers({super.key});
-  final player = AudioPlayer();
   List<String> numb = [
     "one",
     "two",
