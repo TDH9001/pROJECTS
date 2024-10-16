@@ -42,7 +42,13 @@ class news extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(child: upperList(l: l)),
-            SliverToBoxAdapter(child: LowerList())
+//            SliverToBoxAdapter(child: LowerList())
+            SliverList(
+              delegate:
+                  SliverChildBuilderDelegate(childCount: 8, (context, index) {
+                return const LowerList();
+              }),
+            )
           ],
         ),
         // body: Column(
@@ -86,7 +92,7 @@ class LowerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: 9,
+        itemCount: 1,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
