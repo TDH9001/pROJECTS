@@ -9,10 +9,23 @@ import "package:database_sqllite/services/newsservice.dart";
 
 //6d6bfb6954b04753bd81583fa3c5e3cd   API KEY
 
-class news extends StatelessWidget {
-  news({super.key, required this.am});
+class news extends StatefulWidget {
+  news({
+    super.key,
+  });
 
-  List<ArticleModel> am;
+  @override
+  State<news> createState() => _newsState();
+}
+
+var future;
+
+class _newsState extends State<news> {
+  void initState() {
+    future = Newsservice(Dio()).getNews();
+    super.initState();
+  }
+
   List<String> l = [
     "business",
     "entertaiment",
@@ -22,6 +35,7 @@ class news extends StatelessWidget {
     "sports"
     // "technology"
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,32 +73,20 @@ class news extends StatelessWidget {
             //   }),
             // ),
             fb(),
-            SliverToBoxAdapter(child: randomButton())
+            // SliverToBoxAdapter(child: randomButton())
           ],
         ),
       ),
     );
   }
 
-  // Widget test(int index) {
-  //   if (am[index].image != null &&
-  //       am[index].subTitle != null &&
-  //       am[index].title != null) {
-  //     return NewsTile(
-  //       articleModel: am[index],
-  //     );
-  //   } else {
-  //     return SizedBox(width: 0);
-  //   }
+  // Widget fb() {
+  //   return FutureBuilder(
+  //       future: Newsservice(Dio()).getNews(),
+  //       builder: (context, snapshot) {
+  //         return NewsListView(articles: snapshot.data ?? []);
+  //       });
   // }
-
-  Widget fb() {
-    return FutureBuilder(
-        future: Newsservice(Dio()).getNews(),
-        builder: (context, snapshot) {
-          return NewsListView(articles: snapshot.data ?? []);
-        });
-  }
 }
 
 class LowerList extends StatelessWidget {
@@ -179,11 +181,19 @@ Widget randomButton() {
 }
 
 Widget fb() {
-  return FutureBuilder(
-      future: Newsservice(Dio()).getNews(),
+  return FutureBuilder<List<ArticleModel>>(
+      future: future,
       builder: (context, snapshot) {
-        return NewsListView(
-          articles: snapshot.data ?? [],
-        );
+        if (snapshot.hasData) {
+          return NewsListView(
+            articles: snapshot.data ?? [],
+          );
+        } else if (snapshot.hasError || snapshot.data == []) {
+          return const SliverToBoxAdapter(
+              child: Text("an error appeared, soory bro"));
+        } else {
+          return const SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()));
+        }
       });
 }

@@ -94,16 +94,11 @@ class _firstPageState extends State<firstPage> {
                 }),
                 Builder(builder: (context) {
                   return ElevatedButton(
-                      onPressed: () async {
-                        List<ArticleModel> l =
-                            await Newsservice(Dio()).getNews();
-                        print(l[1]);
+                      onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => news(
-                                am: l,
-                              ),
+                              builder: (context) => news(),
                             ));
                       },
                       style: ButtonStyle(
