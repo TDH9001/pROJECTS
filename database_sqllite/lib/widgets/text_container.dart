@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class TextCotnainer extends StatelessWidget {
-  TextCotnainer({required this.col, required this.text, this.taped, Key? key});
+  TextCotnainer({super.key, required this.col, required this.text, this.taped});
   Color? col;
   String? text;
   Function()? taped;

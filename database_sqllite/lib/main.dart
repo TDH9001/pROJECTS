@@ -23,12 +23,12 @@ class _firstPageState extends State<firstPage> {
   Widget build(BuildContext context) {
     return (MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(198, 255, 255, 0),
+        backgroundColor: const Color.fromARGB(198, 255, 255, 0),
         body: Row(
           children: [
             Column(
               children: [
-                Spacer(
+                const Spacer(
                   flex: 3,
                 ),
                 Container(
@@ -46,8 +46,8 @@ class _firstPageState extends State<firstPage> {
                         "INSERT INTO 'NOTES'('note') values ('first')");
                     print(respo);
                   },
-                  child: Text("insert"),
                   color: Colors.red,
+                  child: Text("insert"),
                 ),
                 ElevatedButton(
                     onPressed: () async {
@@ -58,15 +58,15 @@ class _firstPageState extends State<firstPage> {
                         print("${data[i]['id']} , ${data[i]['note']}");
                       }
                     },
-                    child: Text("display")),
+                    child: const Text("display")),
                 MaterialButton(
                   onPressed: () async {
                     int respo = await widget.sq
                         .deleteData("delete from NOTES where id = ?", ['1']);
                     print(respo);
                   },
-                  child: Text("DELETE"),
                   color: Colors.red,
+                  child: Text("DELETE"),
                 ),
                 MaterialButton(
                   onPressed: () async {
@@ -75,8 +75,8 @@ class _firstPageState extends State<firstPage> {
                         ['DEMACIAAAAAAA', '4']);
                     print(respo);
                   },
-                  child: Text("UPDATE"),
                   color: Colors.blue,
+                  child: Text("UPDATE"),
                 ),
                 Builder(builder: (context) {
                   return ElevatedButton(
@@ -84,7 +84,7 @@ class _firstPageState extends State<firstPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => tokuApp(),
+                              builder: (context) => const tokuApp(),
                             ));
                       },
                       child: const Text("navigate to toku"));
@@ -98,16 +98,16 @@ class _firstPageState extends State<firstPage> {
                               builder: (context) => news(),
                             ));
                       },
-                      child: const Text("navigate to News "),
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(Colors.blue),
-                      ));
+                      ),
+                      child: const Text("navigate to News "));
                 })
               ],
             ),
             Column(
               children: [
-                Spacer(
+                const Spacer(
                   flex: 3,
                 ),
                 Container(

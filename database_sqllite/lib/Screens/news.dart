@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//6d6bfb6954b04753bd81583fa3c5e3cd   API KEY
+
 class news extends StatelessWidget {
   news({super.key});
 
@@ -19,13 +21,13 @@ class news extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Container(
+          title: const SizedBox(
             width: double.infinity,
             height: 40,
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "News ",
                   style: TextStyle(color: Colors.black, fontSize: 22),
                 ),
@@ -99,7 +101,7 @@ class LowerList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              padding: EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(2.0),
               width: 70,
               height: 200,
               color: Colors.black,
@@ -119,14 +121,14 @@ class upperList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: double.infinity,
         height: 120,
         // color: Colors.pink,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: l.length,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(3.0),

@@ -39,7 +39,7 @@ class _tokuNumbersState extends State<tokuNumbers> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("number screen and how to learn them"),
+          title: const Text("number screen and how to learn them"),
           backgroundColor: Colors.brown,
         ),
         body: ListView.builder(
