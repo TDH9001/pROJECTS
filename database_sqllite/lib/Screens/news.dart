@@ -1,4 +1,8 @@
+import 'package:database_sqllite/main.dart';
+import 'package:database_sqllite/services/newsservice.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import "package:database_sqllite/services/newsservice.dart";
 
 //6d6bfb6954b04753bd81583fa3c5e3cd   API KEY
 
@@ -50,7 +54,14 @@ class news extends StatelessWidget {
                   SliverChildBuilderDelegate(childCount: 8, (context, index) {
                 return const LowerList();
               }),
-            )
+            ),
+            SliverToBoxAdapter(
+                child: MaterialButton(
+                    onPressed: () async {
+                      await Newsservice(Dio()).getNews();
+                    },
+                    color: Colors.green,
+                    child: Text("ty using the thingy  from dio")))
           ],
         ),
         // body: Column(
