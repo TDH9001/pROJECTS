@@ -1,6 +1,7 @@
 import 'package:database_sqllite/main.dart';
 import 'package:database_sqllite/models/articleModels.dart';
 import 'package:database_sqllite/services/newsservice.dart';
+import 'package:database_sqllite/stolenWidgests/news_list_view.dart';
 import 'package:database_sqllite/widgets/news_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -51,66 +52,39 @@ class news extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(child: upperList(l: l)),
-//            SliverToBoxAdapter(child: LowerList())
-            SliverList(
-              delegate: SliverChildBuilderDelegate(childCount: am.length,
-                  (context, index) {
-                if (am[index].image != null &&
-                    am[index].subTitle != null &&
-                    am[index].title != null)
-                  return NewsTile(
-                    articleModel: am[index],
-                  );
-                else {
-                  return SizedBox(width: 0);
-                  //  NewsTile(
-                  //     articleModel: ArticleModel(
-                  //         "https://static.wikia.nocookie.net/leagueoflegends/images/0/06/Bilgewater_Crest.png/revision/latest?cb=20161117042614",
-                  //         "error",
-                  //         "ERRRORRRS"));
-                }
-              }),
-            ),
-            SliverToBoxAdapter(
-                child: MaterialButton(
-                    onPressed: () async {
-                      List<ArticleModel> artLsit =
-                          await Newsservice(Dio()).getNews();
-                    },
-                    color: Colors.green,
-                    child: Text("try using the thingy  from dio")))
+            // SliverList(
+            //   delegate: SliverChildBuilderDelegate(childCount: am.length,
+            //       (context, index) {
+            //     test(index);
+            //   }),
+            // ),
+            fb(),
+            SliverToBoxAdapter(child: randomButton())
           ],
         ),
-        // body: Column(
-        //   children: [upperList(l: l), lowerLsit()],
-        // ),
       ),
     );
   }
 
-  // lowerList() {
-  //   return Container(
-  //     width: double.infinity,
-  //     height: 606,
-  //     color: Colors.green,
-  //     child: ListView.builder(
-  //         scrollDirection: Axis.vertical,
-  //         itemCount: 9,
-  //         shrinkWrap: true,
-  //         physics: const NeverScrollableScrollPhysics(),
-  //         itemBuilder: (context, index) {
-  //           return Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Container(
-  //               padding: EdgeInsets.all(2.0),
-  //               width: 70,
-  //               height: 200,
-  //               color: Colors.black,
-  //             ),
-  //           );
-  //         }),
-  //   );
+  // Widget test(int index) {
+  //   if (am[index].image != null &&
+  //       am[index].subTitle != null &&
+  //       am[index].title != null) {
+  //     return NewsTile(
+  //       articleModel: am[index],
+  //     );
+  //   } else {
+  //     return SizedBox(width: 0);
+  //   }
   // }
+
+  Widget fb() {
+    return FutureBuilder(
+        future: Newsservice(Dio()).getNews(),
+        builder: (context, snapshot) {
+          return NewsListView(articles: snapshot.data ?? []);
+        });
+  }
 }
 
 class LowerList extends StatelessWidget {
@@ -193,4 +167,23 @@ class upperList extends StatelessWidget {
               );
             }));
   }
+}
+
+Widget randomButton() {
+  return MaterialButton(
+      onPressed: () async {
+        List<ArticleModel> artLsit = await Newsservice(Dio()).getNews();
+      },
+      color: Colors.green,
+      child: Text("try using the thingy  from dio"));
+}
+
+Widget fb() {
+  return FutureBuilder(
+      future: Newsservice(Dio()).getNews(),
+      builder: (context, snapshot) {
+        return NewsListView(
+          articles: snapshot.data ?? [],
+        );
+      });
 }
