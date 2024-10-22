@@ -1,4 +1,6 @@
 import 'package:database_sqllite/Screens/news.dart';
+import 'package:database_sqllite/models/articleModels.dart';
+import 'package:database_sqllite/services/newsservice.dart';
 import 'package:database_sqllite/sql/sqldb.dart';
 import 'package:database_sqllite/Screens/toku.dart';
 import 'package:dio/dio.dart';
@@ -9,8 +11,6 @@ import 'package:flutter/widgets.dart';
 void main() {
   runApp(firstPage());
 }
-
-
 
 class firstPage extends StatefulWidget {
   sqldb sq = sqldb();
@@ -94,11 +94,16 @@ class _firstPageState extends State<firstPage> {
                 }),
                 Builder(builder: (context) {
                   return ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        List<ArticleModel> l =
+                            await Newsservice(Dio()).getNews();
+                        print(l[1]);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => news(),
+                              builder: (context) => news(
+                                am: l,
+                              ),
                             ));
                       },
                       style: ButtonStyle(

@@ -1,3 +1,4 @@
+import 'package:database_sqllite/models/articleModels.dart';
 import 'package:dio/dio.dart';
 
 class Newsservice {
@@ -10,20 +11,25 @@ class Newsservice {
   //   print(response);
   // }
 
-  getNews({String country = "eg", String? catagory}) async {
+  Future<List<ArticleModel>> getNews() async {
     String s =
-        "https://newsapi.org/v2/top-headlines/sources?apiKey=6d6bfb6954b04753bd81583fa3c5e3cd&language=ar";
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=6d6bfb6954b04753bd81583fa3c5e3cd";
 
-    // s += "&$country";
-
-    if (catagory != null) {
-      s += "&$catagory";
-    }
     Response res = await dio.get("$s");
     Map<String, dynamic> jsonData = res.data;
-    List<dynamic> art = jsonData["sources"];
+
+    List<dynamic> art = jsonData["articles"];
+
+    List<ArticleModel> artm = [];
+    print(art.length);
     for (int i = 0; i < art.length; i++) {
-      print(art[i]["id"]);
+      artm.add(ArticleModel(
+          art[i]["urlToImage"], art[i]["title"], art[i]["description"]));
     }
+    //  print(art);
+    // for (int i = 0; i < art.length; i++) {
+    //   print(artm[i]);
+    // }
+    return artm;
   }
 }

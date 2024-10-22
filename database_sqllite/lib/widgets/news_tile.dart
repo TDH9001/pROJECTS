@@ -1,5 +1,5 @@
+import 'package:database_sqllite/models/articleModels.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_ui_setup/models/article_model.dart';
 
 // cached network image
 class NewsTile extends StatelessWidget {
@@ -13,17 +13,19 @@ class NewsTile extends StatelessWidget {
       children: [
         ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: Image.network(
-              articleModel.image!,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            )),
+            child: articleModel.image != null
+                ? Image.network(
+                    articleModel.image!,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset("assets/images/numbers/number_one.png")),
         const SizedBox(
           height: 12,
         ),
         Text(
-          articleModel.title,
+          articleModel.title ?? "NO DATA",
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -36,7 +38,7 @@ class NewsTile extends StatelessWidget {
           height: 8,
         ),
         Text(
-          articleModel.subTitle ?? '',
+          articleModel.subTitle ?? 'No data Found',
           maxLines: 2,
           style: const TextStyle(color: Colors.grey, fontSize: 14),
         )
